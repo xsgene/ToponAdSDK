@@ -2,14 +2,7 @@
 //  TurboAdSDK.m
 //  TurboAdSDK
 //
-//  TurboAdSDK - 独立广告 SDK
-//  Copyright (c) 2024 TurboAdSDK. All rights reserved.
-//
 
-#import "TurboAdSDK.h"
-
-double TurboAdSDKVersionNumber = 1.0.0;
-const unsigned char TurboAdSDKVersionString[] = "1.0.0";
 #import "TurboAdSDK.h"
 
 static NSString * const TurboAdSDKErrorDomain = @"com.turboad.sdk";
@@ -70,6 +63,8 @@ static NSString * const TurboAdSDKErrorDomain = @"com.turboad.sdk";
 }
 @end
 
+
+// --- Banner Ad ---
 @implementation TurboAdBannerView {
     NSString *_placementID;
     UILabel *_titleLabel;
@@ -104,7 +99,7 @@ static NSString * const TurboAdSDKErrorDomain = @"com.turboad.sdk";
         return;
     }
 
-    _titleLabel.text = @"Turbo banner ready";
+    _titleLabel.text = @"Turbo Banner Ready";
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         if ([self.delegate respondsToSelector:@selector(bannerViewDidLoad:)]) {
             [self.delegate bannerViewDidLoad:self];
@@ -113,6 +108,8 @@ static NSString * const TurboAdSDKErrorDomain = @"com.turboad.sdk";
 }
 @end
 
+
+// --- Interstitial Ad ---
 @implementation TurboAdInterstitialAd {
     NSString *_placementID;
     BOOL _ready;
@@ -138,7 +135,7 @@ static NSString * const TurboAdSDKErrorDomain = @"com.turboad.sdk";
     }
 
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        _ready = YES;
+        self->_ready = YES;
         if ([self.delegate respondsToSelector:@selector(interstitialAdDidLoad:)]) {
             [self.delegate interstitialAdDidLoad:self];
         }
@@ -168,6 +165,8 @@ static NSString * const TurboAdSDKErrorDomain = @"com.turboad.sdk";
 }
 @end
 
+
+// --- Rewarded Video Ad ---
 @implementation TurboAdRewardedVideoAd {
     NSString *_placementID;
     BOOL _ready;
@@ -193,7 +192,7 @@ static NSString * const TurboAdSDKErrorDomain = @"com.turboad.sdk";
     }
 
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        _ready = YES;
+        self->_ready = YES;
         if ([self.delegate respondsToSelector:@selector(rewardedVideoAdDidLoad:)]) {
             [self.delegate rewardedVideoAdDidLoad:self];
         }
@@ -221,4 +220,197 @@ static NSString * const TurboAdSDKErrorDomain = @"com.turboad.sdk";
     }];
     return YES;
 }
+@end
+
+
+// --- Splash Ad ---
+@implementation TurboAdSplashAd {
+    NSString *_placementID;
+    BOOL _ready;
+    UIView *_splashOverlayView;
+}
+
+- (instancetype)initWithPlacementID:(NSString *)placementID {
+    self = [super init];
+    if (self) {
+        _placementID = [placementID copy];
+    }
+    return self;
+}
+
+- (void)loadAd {
+    if (![[TurboAdSDK sharedSDK] config]) {
+        NSError *error = [NSError errorWithDomain:TurboAdSDKErrorDomain
+                                             code:TurboAdErrorCodeAdNotReady
+                                         userInfo:@{NSLocalizedDescriptionKey: @"SDK is not initialized."}];
+        if ([self.delegate respondsToSelector:@selector(splashAd:didFailWithError:)]) {
+            [self.delegate splashAd:self didFailWithError:error];
+        }
+        return;
+    }
+
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        self->_ready = YES;
+        if ([self.delegate respondsToSelector:@selector(splashAdDidLoad:)]) {
+            [self.delegate splashAdDidLoad:self];
+        }
+    });
+}
+
+- (BOOL)showInWindow:(UIWindow *)window {
+    if (!_ready || !window) {
+        return NO;
+    }
+
+    _splashOverlayView = [[UIView alloc] initWithFrame:window.bounds];
+    _splashOverlayView.backgroundColor = [UIColor colorWithRed:0.2 green:0.6 blue:1.0 alpha:1.0];
+
+    UILabel *adLabel = [[UILabel alloc] initWithFrame:_splashOverlayView.bounds];
+    adLabel.textAlignment = NSTextAlignmentCenter;
+    adLabel.text = [NSString stringWithFormat:@"Splash Ad: %@", _placementID];
+    adLabel.textColor = [UIColor whiteColor];
+    adLabel.font = [UIFont boldSystemFontOfSize:24];
+    [_splashOverlayView addSubview:adLabel];
+
+    UIButton *skipButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    skipButton.frame = CGRectMake(window.bounds.size.width - 70, 50, 60, 30);
+    [skipButton setTitle:@"Skip" forState:UIControlStateNormal];
+    [skipButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    skipButton.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
+    skipButton.layer.cornerRadius = 15;
+    [skipButton addTarget:self action:@selector(skipButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+    [_splashOverlayView addSubview:skipButton];
+
+    [window addSubview:_splashOverlayView];
+
+    if ([self.delegate respondsToSelector:@selector(splashAdDidShow:)]) {
+        [self.delegate splashAdDidShow:self];
+    }
+
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self dismissSplash];
+    });
+
+    return YES;
+}
+
+- (void)skipButtonTapped {
+    [self dismissSplash];
+}
+
+- (void)dismissSplash {
+    if (_splashOverlayView) {
+        [UIView animateWithDuration:0.3 animations:^{
+            self->_splashOverlayView.alpha = 0;
+        } completion:^(BOOL finished) {
+            [self->_splashOverlayView removeFromSuperview];
+            self->_splashOverlayView = nil;
+            if ([self.delegate respondsToSelector:@selector(splashAdDidClose:)]) {
+                [self.delegate splashAdDidClose:self];
+            }
+        }];
+    }
+}
+@end
+
+
+// --- Native Ad ---
+@interface TurboAdNativeAd ()
+@property (nonatomic, copy, readwrite) NSString *title;
+@property (nonatomic, copy, readwrite) NSString *text;
+@property (nonatomic, copy, readwrite) NSString *ctaText;
+@property (nonatomic, copy, readwrite) NSString *iconURL;
+@property (nonatomic, strong) NSMutableArray<UIView *> *registeredViews;
+@end
+
+@implementation TurboAdNativeAd {
+    NSString *_placementID;
+}
+
+- (instancetype)initWithPlacementID:(NSString *)placementID {
+    self = [super init];
+    if (self) {
+        _placementID = [placementID copy];
+        _registeredViews = [NSMutableArray array];
+    }
+    return self;
+}
+
+- (void)loadAd {
+    if (![[TurboAdSDK sharedSDK] config]) {
+        NSError *error = [NSError errorWithDomain:TurboAdSDKErrorDomain
+                                             code:TurboAdErrorCodeAdNotReady
+                                         userInfo:@{NSLocalizedDescriptionKey: @"SDK is not initialized."}];
+        if ([self.delegate respondsToSelector:@selector(nativeAd:didFailWithError:)]) {
+            [self.delegate nativeAd:self didFailWithError:error];
+        }
+        return;
+    }
+
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        self.title = @"Native Ad Title";
+        self.text = @"This is an awesome native ad description. Learn more now!";
+        self.ctaText = @"Install";
+        self.iconURL = @"https://example.com/icon.png"; // Mock URL
+
+        if ([self.delegate respondsToSelector:@selector(nativeAdDidLoad:)]) {
+            [self.delegate nativeAdDidLoad:self];
+        }
+    });
+}
+
+- (void)registerClickableViews:(NSArray<UIView *> *)clickableViews {
+    for (UIView *view in self.registeredViews) {
+        for (UIGestureRecognizer *gesture in view.gestureRecognizers) {
+            if ([gesture isKindOfClass:[UITapGestureRecognizer class]]) {
+                [view removeGestureRecognizer:gesture];
+            }
+        }
+    }
+    [self.registeredViews removeAllObjects];
+
+    for (UIView *view in clickableViews) {
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleClick:)];
+        [view addGestureRecognizer:tap];
+        [self.registeredViews addObject:view];
+        view.userInteractionEnabled = YES;
+    }
+}
+
+- (void)handleClick:(UITapGestureRecognizer *)gesture {
+    if ([self.delegate respondsToSelector:@selector(nativeAdDidClick:)]) {
+        [self.delegate nativeAdDidClick:self];
+    }
+}
+@end
+
+@implementation TurboAdNativeView
+
+- (instancetype)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    if (self) {
+        _titleLabel = [[UILabel alloc] init];
+        _textLabel = [[UILabel alloc] init];
+        _ctaButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        _iconImageView = [[UIImageView alloc] init];
+
+        [self addSubview:_titleLabel];
+        [self addSubview:_textLabel];
+        [self addSubview:_ctaButton];
+        [self addSubview:_iconImageView];
+    }
+    return self;
+}
+
+- (void)refreshWithNativeAd:(TurboAdNativeAd *)nativeAd {
+    self.titleLabel.text = nativeAd.title;
+    self.textLabel.text = nativeAd.text;
+    [self.ctaButton setTitle:nativeAd.ctaText forState:UIControlStateNormal];
+    // Normally load iconURL into iconImageView here asynchronously
+    self.iconImageView.backgroundColor = [UIColor grayColor];
+
+    // Register views for click
+    [nativeAd registerClickableViews:@[self.titleLabel, self.textLabel, self.ctaButton, self.iconImageView, self]];
+}
+
 @end
