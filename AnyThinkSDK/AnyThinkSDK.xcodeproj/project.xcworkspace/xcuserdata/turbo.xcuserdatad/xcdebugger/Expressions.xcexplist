@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "-[ATAPI loadPSID:]:ATAPI.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[ATAppSettingManager sharedManager]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "__58-[ATAgentEvent appendEvent:usingTrackingSetting:diskData:]_block_invoke:ATAgentEvent.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[ATAppSettingManager getUserLocationWithCallback:]:ATAppSettingManager.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[ATAppSettingManager sharedManager].kATID">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[ATAppSettingManager init]:ATAppSettingManager.m">
+      </ContextState>
+      <ContextState
+         contextName = "__18-[ATAPI loadPSID:]_block_invoke:ATAPI.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[ATAppSettingManager sharedManager]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[ATAgentEvent uploadData:completion:]:ATAgentEvent.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[ATAgentEvent saveEventWithKey:placementID:unitGroupModel:extraInfo:]:ATAgentEvent.m">
+      </ContextState>
+      <ContextState
+         contextName = "+[ATAppSettingManager sharedManager]:ATAppSettingManager.m">
+      </ContextState>
+      <ContextState
+         contextName = "__79+[ATAgentEvent eventParametersWithKey:forPlacementID:unitGroupModel:extraInfo:]_block_invoke:ATAgentEvent.m">
+      </ContextState>
+      <ContextState
+         contextName = "__18-[ATAPI loadPSID:]_block_invoke.862:ATAPI.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[ATAppSettingManager sharedManager]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[ATAgentEvent appendEvent:usingTrackingSetting:diskData:]:ATAgentEvent.m">
+      </ContextState>
+      <ContextState
+         contextName = "+[ATAgentEvent eventParametersWithKey:forPlacementID:unitGroupModel:extraInfo:]:ATAgentEvent.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[ATAppSettingManager psIDInterval]:ATAppSettingManager.m">
+      </ContextState>
+      <ContextState
+         contextName = "__53-[ATAgentEvent sendHTTPRequestParameters:completion:]_block_invoke:ATAgentEvent.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "response.statusCode">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "__46-[ATWaterfallManager loadingAdForPlacementID:]_block_invoke:ATWaterfallManager.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "weakSelf.waterfallWrappers">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>

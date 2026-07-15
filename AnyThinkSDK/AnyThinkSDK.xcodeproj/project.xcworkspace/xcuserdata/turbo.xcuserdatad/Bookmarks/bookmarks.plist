@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>top-level-items</key>
+	<array>
+		<dict>
+			<key>destination</key>
+			<dict>
+				<key>location-parameters</key>
+				<dict>
+					<key>EndingColumnNumber</key>
+					<string>2</string>
+					<key>EndingLineNumber</key>
+					<string>29</string>
+					<key>StartingColumnNumber</key>
+					<string>1</string>
+					<key>StartingLineNumber</key>
+					<string>29</string>
+					<key>Timestamp</key>
+					<string>805340815.3412369</string>
+				</dict>
+				<key>rebasable-url</key>
+				<dict>
+					<key>base</key>
+					<string>workspace</string>
+					<key>payload</key>
+					<dict>
+						<key>relative-path</key>
+						<string>AnyThinkSDK/ADX/API/ATADXAdManager.h</string>
+					</dict>
+				</dict>
+			</dict>
+			<key>text-context</key>
+			<dict>
+				<key>focused</key>
+				<string>(</string>
+				<key>leading</key>
+				<string>
+
+-</string>
+				<key>trailing</key>
+				<string>void) loadADWithUnitGroup:(ATUnitGroupModel*)unitGroupModel bidInfo:(ATBidInfo*) bidInfo setting:(ATADXPlacementSetting*)setting placementModel:(ATPlacementModel *)placementModel content:(NSDictionary *)content requestID:(NSString *)requestID delegate:(id&lt;ATADXAdLoadingDelegate&gt;)delegate;
+-(BOOL) readyForUnitGroupModel:(ATUnitGroupModel*)unitGroupModel setting:(ATADXPlacementSetting*)setting;
+-(NSString *) priceForReadyUnitGroupModel:(ATUnitGroupModel*)unitGroupModel setting:(ATADXPlacementSetting*)setting;
+</string>
+			</dict>
+			<key>type</key>
+			<string>bookmark</string>
+		</dict>
+		<dict>
+			<key>destination</key>
+			<dict>
+				<key>location-parameters</key>
+				<dict>
+					<key>EndingColumnNumber</key>
+					<string>0</string>
+					<key>EndingLineNumber</key>
+					<string>651</string>
+					<key>StartingColumnNumber</key>
+					<string>0</string>
+					<key>StartingLineNumber</key>
+					<string>650</string>
+					<key>Timestamp</key>
+					<string>805700367.610498</string>
+				</dict>
+				<key>rebasable-url</key>
+				<dict>
+					<key>base</key>
+					<string>workspace</string>
+					<key>payload</key>
+					<dict>
+						<key>relative-path</key>
+						<string>AnyThinkSDK/Core/Managers/ATAppSettingManager.m</string>
+					</dict>
+				</dict>
+			</dict>
+			<key>text-context</key>
+			<dict>
+				<key>focused</key>
+				<string>                                              @"tk_addr":@"https://adxtk.anythinktech.com/v1", @"tk_sw":@1,
+</string>
+				<key>leading</key>
+				<string>    return [[self alloc] initWithDictionary:@{@"req_addr":@"https://adx.anythinktech.com/request", @"bid_sw":@1,
+                                              @"bid_addr":@"https://adx.anythinktech.com/bid", @"req_sw":@1,
+</string>
+				<key>trailing</key>
+				<string>                                              kATAppSettingDefaultFlagKey:@YES
+                                              }];
+}
+</string>
+			</dict>
+			<key>type</key>
+			<string>bookmark</string>
+		</dict>
+		<dict>
+			<key>destination</key>
+			<dict>
+				<key>location-parameters</key>
+				<dict>
+					<key>EndingColumnNumber</key>
+					<string>39</string>
+					<key>EndingLineNumber</key>
+					<string>87</string>
+					<key>StartingColumnNumber</key>
+					<string>8</string>
+					<key>StartingLineNumber</key>
+					<string>87</string>
+					<key>Timestamp</key>
+					<string>805345742.605853</string>
+				</dict>
+				<key>rebasable-url</key>
+				<dict>
+					<key>base</key>
+					<string>workspace</string>
+					<key>payload</key>
+					<dict>
+						<key>relative-path</key>
+						<string>AnyThinkSDK/ADX/Managers/ATADXLoader.m</string>
+					</dict>
+				</dict>
+			</dict>
+			<key>text-context</key>
+			<dict>
+				<key>focused</key>
+				<string>requestADXAdsWithUnitGroupModel</string>
+				<key>leading</key>
+				<string>}
+
+-(void) </string>
+				<key>trailing</key>
+				<string>:(ATUnitGroupModel*)unitGroupModel bidInfo:(ATBidInfo*) bidInfo requestID:(NSString*)requestID placementModel:(ATPlacementModel *)placementModel content:(NSDictionary *)content completion:(void(^)(ATADXOfferModel *offerModel, NSError *error))completion {
+   
+    if(unitGroupModel == nil || bidInfo == nil){
+</string>
+			</dict>
+			<key>type</key>
+			<string>bookmark</string>
+		</dict>
+		<dict>
+			<key>destination</key>
+			<dict>
+				<key>location-parameters</key>
+				<dict>
+					<key>EndingColumnNumber</key>
+					<string>23</string>
+					<key>EndingLineNumber</key>
+					<string>67</string>
+					<key>StartingColumnNumber</key>
+					<string>4</string>
+					<key>StartingLineNumber</key>
+					<string>67</string>
+					<key>Timestamp</key>
+					<string>805347615.145895</string>
+				</dict>
+				<key>rebasable-url</key>
+				<dict>
+					<key>base</key>
+					<string>workspace</string>
+					<key>payload</key>
+					<dict>
+						<key>relative-path</key>
+						<string>AnyThinkSDK/Internal/Networking/ATNetworkingManager.m</string>
+					</dict>
+				</dict>
+			</dict>
+			<key>text-context</key>
+			<dict>
+				<key>focused</key>
+				<string>NSMutableURLRequest</string>
+				<key>leading</key>
+				<string>-(void) postParameters:(id)parameters toURL:(NSURL*)URL gzipBody:(BOOL)gzip completion:(void(^)(NSData *data, NSURLResponse * _Nullable response, NSError * _Nullable error))completion {
+    NSData *bodyData = [[parameters jsonString_anythink] dataUsingEncoding:NSUTF8StringEncoding];
+    </string>
+				<key>trailing</key>
+				<string> *request = [NSMutableURLRequest requestWithURL:URL];
+    [request setHTTPMethod:@"POST"];
+    [request setHTTPBody:gzip ? [bodyData gzippedData_ATKit] : bodyData];
+</string>
+			</dict>
+			<key>type</key>
+			<string>bookmark</string>
+		</dict>
+		<dict>
+			<key>destination</key>
+			<dict>
+				<key>location-parameters</key>
+				<dict>
+					<key>EndingColumnNumber</key>
+					<string>27</string>
+					<key>EndingLineNumber</key>
+					<string>27</string>
+					<key>StartingColumnNumber</key>
+					<string>8</string>
+					<key>StartingLineNumber</key>
+					<string>27</string>
+					<key>Timestamp</key>
+					<string>805602645.800139</string>
+				</dict>
+				<key>rebasable-url</key>
+				<dict>
+					<key>base</key>
+					<string>workspace</string>
+					<key>payload</key>
+					<dict>
+						<key>relative-path</key>
+						<string>AnyThinkSDK/ADX/API/ATADXAdManager.m</string>
+					</dict>
+				</dict>
+			</dict>
+			<key>text-context</key>
+			<dict>
+				<key>focused</key>
+				<string>loadADWithUnitGroup</string>
+				<key>leading</key>
+				<string>}
+
+-(void) </string>
+				<key>trailing</key>
+				<string>:(ATUnitGroupModel*)unitGroupModel bidInfo:(ATBidInfo*) bidInfo setting:(ATADXPlacementSetting*)setting placementModel:(ATPlacementModel *)placementModel content:(NSDictionary *)content requestID:(NSString *)requestID delegate:(id&lt;ATADXAdLoadingDelegate&gt;)delegate {
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+</string>
+			</dict>
+			<key>type</key>
+			<string>bookmark</string>
+		</dict>
+		<dict>
+			<key>destination</key>
+			<dict>
+				<key>location-parameters</key>
+				<dict>
+					<key>EndingColumnNumber</key>
+					<string>60</string>
+					<key>EndingLineNumber</key>
+					<string>159</string>
+					<key>StartingColumnNumber</key>
+					<string>59</string>
+					<key>StartingLineNumber</key>
+					<string>159</string>
+					<key>Timestamp</key>
+					<string>805614793.743784</string>
+				</dict>
+				<key>rebasable-url</key>
+				<dict>
+					<key>base</key>
+					<string>workspace</string>
+					<key>payload</key>
+					<dict>
+						<key>relative-path</key>
+						<string>AnyThinkSDK/Core/Managers/ATAdLoader.m</string>
+					</dict>
+				</dict>
+			</dict>
+			<key>text-context</key>
+			<dict>
+				<key>focused</key>
+				<string>(</string>
+				<key>leading</key>
+				<string>}
+
+-(void) loadADWithPlacementID:(NSString*)placementID extra:</string>
+				<key>trailing</key>
+				<string>NSDictionary*)extra customData:(NSDictionary*)customData delegate:(id&lt;ATAdLoadingDelegate&gt;)delegate {
+    NSString *requestID = [Utilities generateRequestID];
+    [[ATPlacementSettingManager sharedManager] setLatestRequestID:requestID forPlacementID:placementID];
+</string>
+			</dict>
+			<key>type</key>
+			<string>bookmark</string>
+		</dict>
+		<dict>
+			<key>destination</key>
+			<dict>
+				<key>location-parameters</key>
+				<dict>
+					<key>EndingColumnNumber</key>
+					<string>6</string>
+					<key>EndingLineNumber</key>
+					<string>60</string>
+					<key>StartingColumnNumber</key>
+					<string>0</string>
+					<key>StartingLineNumber</key>
+					<string>60</string>
+					<key>Timestamp</key>
+					<string>805620543.774577</string>
+				</dict>
+				<key>rebasable-url</key>
+				<dict>
+					<key>base</key>
+					<string>workspace</string>
+					<key>payload</key>
+					<dict>
+						<key>relative-path</key>
+						<string>AnyThinkSDKDemo/ATInterstitialViewController.m</string>
+					</dict>
+				</dict>
+			</dict>
+			<key>text-context</key>
+			<dict>
+				<key>focused</key>
+				<string>static</string>
+				<key>leading</key>
+				<string>static NSString *const kGAMPlacementID = @"b5f2389ab6ee63";
+static NSString *const kHeliumPlacementID = @"b5f583ec12143f";
+</string>
+				<key>trailing</key>
+				<string> NSString *const kADXPlacementID = @"b5fa25016e80bd";
+static NSString *const kOnlineApiPlacementID = @"b5fa250771e076";
+static NSString *const kKidozPlacementID = @"b5feaa2df0e121";
+</string>
+			</dict>
+			<key>type</key>
+			<string>bookmark</string>
+		</dict>
+		<dict>
+			<key>destination</key>
+			<dict>
+				<key>location-parameters</key>
+				<dict>
+					<key>EndingColumnNumber</key>
+					<string>0</string>
+					<key>EndingLineNumber</key>
+					<string>634</string>
+					<key>StartingColumnNumber</key>
+					<string>39</string>
+					<key>StartingLineNumber</key>
+					<string>633</string>
+					<key>Timestamp</key>
+					<string>805627184.744651</string>
+				</dict>
+				<key>rebasable-url</key>
+				<dict>
+					<key>base</key>
+					<string>workspace</string>
+					<key>payload</key>
+					<dict>
+						<key>relative-path</key>
+						<string>AnyThinkSDK/Core/Managers/ATAgentEvent.m</string>
+					</dict>
+				</dict>
+			</dict>
+			<key>text-context</key>
+			<dict>
+				<key>focused</key>
+				<string>
+</string>
+				<key>leading</key>
+				<string>                            @"network_type":@"",
+                            @"mnc":@"",
+                            @"mcc":@"",</string>
+				<key>trailing</key>
+				<string>                            @"language":@"",
+                            @"brand":@"",
+                            @"model":@"",
+</string>
+			</dict>
+			<key>type</key>
+			<string>bookmark</string>
+		</dict>
+		<dict>
+			<key>destination</key>
+			<dict>
+				<key>location-parameters</key>
+				<dict>
+					<key>EndingColumnNumber</key>
+					<string>16</string>
+					<key>EndingLineNumber</key>
+					<string>98</string>
+					<key>StartingColumnNumber</key>
+					<string>0</string>
+					<key>StartingLineNumber</key>
+					<string>98</string>
+					<key>Timestamp</key>
+					<string>805631728.429116</string>
+				</dict>
+				<key>rebasable-url</key>
+				<dict>
+					<key>base</key>
+					<string>workspace</string>
+					<key>payload</key>
+					<dict>
+						<key>relative-path</key>
+						<string>AnyThinkSDKDemo/TopOnAdManager.m</string>
+					</dict>
+				</dict>
+			</dict>
+			<key>text-context</key>
+			<dict>
+				<key>focused</key>
+				<string>                </string>
+				<key>leading</key>
+				<string>            //iOS 14
+            [ATTrackingManager requestTrackingAuthorizationWithCompletionHandler:^(ATTrackingManagerAuthorizationStatus status) {
+</string>
+				<key>trailing</key>
+				<string>[[ATAPI sharedInstance] startWithAppID:@"a5b0e8491845b3" appKey:@"7eae0567827cfe2b22874061763f30c9" error:nil];
+            }];
+        } else {
+</string>
+			</dict>
+			<key>type</key>
+			<string>bookmark</string>
+		</dict>
+		<dict>
+			<key>destination</key>
+			<dict>
+				<key>location-parameters</key>
+				<dict>
+					<key>EndingColumnNumber</key>
+					<string>0</string>
+					<key>EndingLineNumber</key>
+					<string>678</string>
+					<key>StartingColumnNumber</key>
+					<string>0</string>
+					<key>StartingLineNumber</key>
+					<string>677</string>
+					<key>Timestamp</key>
+					<string>805700462.742663</string>
+				</dict>
+				<key>rebasable-url</key>
+				<dict>
+					<key>base</key>
+					<string>workspace</string>
+					<key>payload</key>
+					<dict>
+						<key>relative-path</key>
+						<string>AnyThinkSDK/Core/API/ATAPI.m</string>
+					</dict>
+				</dict>
+			</dict>
+			<key>text-context</key>
+			<dict>
+				<key>focused</key>
+				<string>-(BOOL) startWithAppID:(NSString*)appID appKey:(NSString*)appKey error:(NSError**)error isOfm:(BOOL)isOfm shouldUpdateOfm:(BOOL)shouldUpdateOfm completion:(void (^)(NSDictionary *, NSError *)) completion {
+</string>
+				<key>leading</key>
+				<string>}
+
+</string>
+				<key>trailing</key>
+				<string>
+    [ATLogger logMessage:@"startWithAppID" type:ATLogTypeInternal];
+    _appID = appID;
+</string>
+			</dict>
+			<key>type</key>
+			<string>bookmark</string>
+		</dict>
+	</array>
+</dict>
+</plist>
