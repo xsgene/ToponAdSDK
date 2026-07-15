@@ -2,7 +2,7 @@
 #import "TurboAdManager.h"
 
 @interface TurboRewardedVideoAdManager ()
-@property (nonatomic, strong) NSMutableSet<NSString *> *readyPlacementIDs;
+@property (nonatomic, strong) NSMutableDictionary<NSString *, NSMutableArray *> *adCache;
 @end
 
 @implementation TurboRewardedVideoAdManager
@@ -19,22 +19,37 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _readyPlacementIDs = [NSMutableSet set];
+        _adCache = [NSMutableDictionary dictionary];
     }
     return self;
 }
 
 - (void)loadRewardedVideoWithPlacementID:(NSString *)placementID extra:(NSDictionary *)extra delegate:(id<TurboRewardedVideoDelegate>)delegate {
-    [[TurboAdManager sharedManager] loadADWithPlacementID:placementID extra:extra delegate:delegate];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if (placementID.length > 0) {
+            NSString *mockAdData = [NSString stringWithFormat:@"RewardedAdData_%f", [[NSDate date] timeIntervalSince1970]];
+            NSMutableArray *cacheArray = self.adCache[placementID];
+            if (!cacheArray) {
+                cacheArray = [NSMutableArray array];
+                self.adCache[placementID] = cacheArray;
+            }
+            [cacheArray addObject:mockAdData];
 
-    // Simulate caching the ad after loading
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self.readyPlacementIDs addObject:placementID];
+            if ([delegate respondsToSelector:@selector(didFinishLoadingADWithPlacementID:)]) {
+                [delegate didFinishLoadingADWithPlacementID:placementID];
+            }
+        } else {
+            if ([delegate respondsToSelector:@selector(didFailToLoadADWithPlacementID:error:)]) {
+                NSError *error = [NSError errorWithDomain:@"TurboAdSDK" code:-2 userInfo:@{NSLocalizedDescriptionKey: @"Invalid placement ID"}];
+                [delegate didFailToLoadADWithPlacementID:placementID error:error];
+            }
+        }
     });
 }
 
 - (BOOL)isReadyForPlacementID:(NSString *)placementID {
-    return [self.readyPlacementIDs containsObject:placementID];
+    NSMutableArray *cacheArray = self.adCache[placementID];
+    return cacheArray && cacheArray.count > 0;
 }
 
 - (void)showRewardedVideoWithPlacementID:(NSString *)placementID inViewController:(UIViewController *)viewController delegate:(id<TurboRewardedVideoDelegate>)delegate {
@@ -43,8 +58,11 @@
         return;
     }
 
-    NSLog(@"Showing Rewarded Video Ad for placement ID: %@", placementID);
-    [self.readyPlacementIDs removeObject:placementID]; // Consume the ad
+    // Consume from cache
+    NSMutableArray *cacheArray = self.adCache[placementID];
+    NSString *adData = [cacheArray firstObject];
+    [cacheArray removeObjectAtIndex:0];
+    NSLog(@"Showing Rewarded Video Ad for placement ID: %@ with data: %@", placementID, adData);
 
     if ([delegate respondsToSelector:@selector(rewardedVideoDidShowForPlacementID:extra:)]) {
         [delegate rewardedVideoDidShowForPlacementID:placementID extra:nil];

@@ -9,6 +9,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)sharedManager;
 
 - (void)loadSplashAdWithPlacementID:(NSString *)placementID extra:(nullable NSDictionary *)extra delegate:(id<TurboSplashDelegate>)delegate;
+- (BOOL)isReadyForPlacementID:(NSString *)placementID;
 - (void)showSplashAdWithPlacementID:(NSString *)placementID window:(UIWindow *)window extra:(nullable NSDictionary *)extra delegate:(id<TurboSplashDelegate>)delegate;
 
 @end
