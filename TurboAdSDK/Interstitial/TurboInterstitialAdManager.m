@@ -1,5 +1,7 @@
 #import "TurboInterstitialAdManager.h"
 #import "TurboAdManager.h"
+#import "TurboAdLoader.h"
+#import "TurboTracker.h"
 
 @interface TurboInterstitialAdManager ()
 @property (nonatomic, strong) NSMutableDictionary<NSString *, NSMutableArray *> *adCache;
@@ -25,27 +27,24 @@
 }
 
 - (void)loadInterstitialAdWithPlacementID:(NSString *)placementID extra:(NSDictionary *)extra delegate:(id<TurboInterstitialDelegate>)delegate {
-    // Simulate async ad load
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        if (placementID.length > 0) {
-            NSString *mockAdData = [NSString stringWithFormat:@"InterstitialAdData_%f", [[NSDate date] timeIntervalSince1970]];
+    [[TurboAdLoader sharedLoader] requestAdWithPlacementID:placementID extra:extra completion:^(NSDictionary * _Nullable offerDict, NSError * _Nullable error) {
+        if (error) {
+            if ([delegate respondsToSelector:@selector(didFailToLoadADWithPlacementID:error:)]) {
+                [delegate didFailToLoadADWithPlacementID:placementID error:error];
+            }
+        } else if (offerDict) {
             NSMutableArray *cacheArray = self.adCache[placementID];
             if (!cacheArray) {
                 cacheArray = [NSMutableArray array];
                 self.adCache[placementID] = cacheArray;
             }
-            [cacheArray addObject:mockAdData];
+            [cacheArray addObject:offerDict];
 
             if ([delegate respondsToSelector:@selector(didFinishLoadingADWithPlacementID:)]) {
                 [delegate didFinishLoadingADWithPlacementID:placementID];
             }
-        } else {
-            if ([delegate respondsToSelector:@selector(didFailToLoadADWithPlacementID:error:)]) {
-                NSError *error = [NSError errorWithDomain:@"TurboAdSDK" code:-2 userInfo:@{NSLocalizedDescriptionKey: @"Invalid placement ID"}];
-                [delegate didFailToLoadADWithPlacementID:placementID error:error];
-            }
         }
-    });
+    }];
 }
 
 - (BOOL)isReadyForPlacementID:(NSString *)placementID {
@@ -61,9 +60,11 @@
 
     // Consume from cache
     NSMutableArray *cacheArray = self.adCache[placementID];
-    NSString *adData = [cacheArray firstObject];
+    NSDictionary *adData = [cacheArray firstObject];
     [cacheArray removeObjectAtIndex:0];
     NSLog(@"Showing Interstitial Ad for placement ID: %@ with data: %@", placementID, adData);
+
+    [[TurboTracker sharedTracker] trackEvent:TurboTrackerEventImpression placementID:placementID adData:adData];
 
     if ([delegate respondsToSelector:@selector(interstitialDidShowForPlacementID:extra:)]) {
         [delegate interstitialDidShowForPlacementID:placementID extra:nil];
